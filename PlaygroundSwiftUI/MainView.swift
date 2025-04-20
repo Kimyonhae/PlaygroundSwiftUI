@@ -21,7 +21,12 @@ struct ConnectionView: Identifiable {
 let routes: [ConnectionView] = [
     ConnectionView(title: "Chart Playground", destination: ChartView(title: "Chart Playground")),
     ConnectionView(title: "DarkMode Playground", destination: DarkModeView()),
-    ConnectionView(title: "Localtion Playground", destination: LocationView())
+    ConnectionView(title: "Localtion Playground", destination: LocationView()),
+    ConnectionView(title: "ENVTest Playground", destination: ENVTestView()),
+    ConnectionView(title: "AnimatedList Playground", destination: AnimatedList()),
+    ConnectionView(title: "LandMarks Playground", destination: LandMarks()),
+    ConnectionView(title: "GithubUserListView Playground", destination: GithubUserListView()),
+    ConnectionView(title: "Subscriber Playground", destination: SubscriberView(title: "구독 연습"))
 ]
 
 struct MainView: View {
