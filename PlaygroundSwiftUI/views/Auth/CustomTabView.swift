@@ -9,7 +9,14 @@ import SwiftUI
 
 struct CustomTabView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        TabView {
+           Tab("LogOut", systemImage: "figure.run.circle") {
+               Text("Logout")
+           }
+           Tab("Profile", systemImage: "person.crop.circle") {
+               Text("Profile")
+           }
+        }
     }
 }
 

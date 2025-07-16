@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct AuthView: View {
+struct CoordinatorView: View {
     
     @StateObject private var coordinator = Coordinator()
     
     var body: some View {
         NavigationStack(path: $coordinator.path) {
-            EmptyView()
+            coordinator.build(page: .main)
                 .navigationDestination(for: Page.self) { page in
                     coordinator.build(page: page)
                 }
@@ -22,11 +22,6 @@ struct AuthView: View {
                 }
                 .fullScreenCover(item: $coordinator.fullSheetCover) { fullSheetCover in
                     coordinator.build(fullScreenCover: fullSheetCover)
-                }
-                .onAppear {
-                    if coordinator.path.isEmpty {
-                        coordinator.push(.login)
-                    }
                 }
                 .navigationTitle(Text("Auth Page"))
         }

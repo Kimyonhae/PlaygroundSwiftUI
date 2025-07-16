@@ -12,7 +12,7 @@ import SwiftUI
 struct PlayGroundSwiftUI: App {
     var body: some Scene {
         WindowGroup {
-            MainView()
+            CoordinatorView()
         }
     }
 }
