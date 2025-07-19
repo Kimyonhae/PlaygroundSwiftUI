@@ -27,6 +27,7 @@ let routes: [ConnectionView] = [
     ConnectionView(title: "LandMarks Playground", destination: LandMarks()),
     ConnectionView(title: "GithubUserListView Playground", destination: GithubUserListView()),
     ConnectionView(title: "Subscriber Playground", destination: SubscriberView(title: "구독 연습")),
+    ConnectionView(title: "뷰 - 뷰모델의 새로운 발견", destination: ContentView()),
 ]
 
 struct MainView: View {
