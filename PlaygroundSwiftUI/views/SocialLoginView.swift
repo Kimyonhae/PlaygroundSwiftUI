@@ -10,24 +10,30 @@ import KakaoSDKUser
 import KakaoSDKAuth
 
 struct SocialLoginView: View {
-    @StateObject var vm: SocialLoginView.ViewModel = .init()
+    @StateObject var vm: SocialLoginView.KaKaoAuthViewModel = .init()
     
     var body: some View {
         if AuthApi.hasToken() && vm.isKaKaoLogin {
             VStack {
                 Text("로그인 성공~")
                 Button("카카오톡 로그 아웃") {
-                    vm.logoutKaKao()
+                    Task {
+                        await vm.logout()
+                    }
                 }
             }
-        }else {
+            .onAppear {
+                print("현재 상태 : \(AuthApi.hasToken()) , isKaKaoLogin : \(vm.isKaKaoLogin)")
+            }
+        } else {
             VStack {
                 Text("로그인")
                     .font(.title)
                 
                 Button(action: {
-                    // 카카오톡 실행 가능 여부 확인
-                    vm.loginKaKao()
+                    Task {
+                        await vm.login() // logout() -> login()으로 변경하고 Task로 감쌈
+                    }
                 }) {
                     Text("카카오 로그인")
                         .frame(maxWidth: .infinity, maxHeight: 60)
@@ -49,7 +55,6 @@ struct SocialLoginView: View {
                 }
                 .buttonStyle(.plain)
                 .padding(.vertical, 4)
-                
                 
                 Button(action: {
                     print("구글")
@@ -77,59 +82,97 @@ struct SocialLoginView: View {
             }
             .padding()
             .onAppear {
-                print("token의 상태 : \(AuthApi.hasToken())")
+                print("현재 상태 : \(AuthApi.hasToken()) , isKaKaoLogin : \(vm.isKaKaoLogin)")
             }
         }
     }
 }
 
+protocol LoginService {
+    func login() async
+    func logout() async
+}
 
+protocol KaKaoLoginService: LoginService {
+    func innerHavingKaKaoAppLogin() async -> Bool
+    func webviewKaKaoLogin() async -> Bool
+    func logoutKaKao() async -> Bool
+}
+protocol NaverLoginService: LoginService {}
+protocol AppleLoginService: LoginService {}
+protocol GoogleLoginService: LoginService {}
+
+// viewModel
 extension SocialLoginView {
-    class ViewModel: ObservableObject {
+    
+    @MainActor
+    class KaKaoAuthViewModel: ObservableObject, KaKaoLoginService {
         @Published var isKaKaoLogin: Bool = false
-            
         
         // TODO: KAKAO LOGIN
-        func loginKaKao() {
-            
+        func login() async {
             if (UserApi.isKakaoTalkLoginAvailable()) {
-                UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                self.isKaKaoLogin = await innerHavingKaKaoAppLogin()
+            } else {
+                self.isKaKaoLogin = await webviewKaKaoLogin()
+            }
+        }
+        
+        // TODO: 카카오 로그 아웃
+        func logout() async {
+            let success = await logoutKaKao()
+            if success {
+                self.isKaKaoLogin = false
+            }
+        }
+        
+        // TODO: 카카오앱이 설치 되어 있을 경우
+        internal func innerHavingKaKaoAppLogin() async -> Bool {
+            await withCheckedContinuation { continuation in
+                UserApi.shared.loginWithKakaoTalk { (oauthToken, error) in
                     if let error = error {
-                        print(error)
-                    }
-                    else {
+                        print("KakaoTalk login error: \(error)")
+                        continuation.resume(returning: false)
+                    } else {
                         print("loginWithKakaoTalk() success.")
-                        
                         // 성공 시 동작 구현
-                        self.isKaKaoLogin = true
-                    }
-                }
-            }else {
-                UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
-                    if let error = error {
-                        print(error)
-                    }
-                    else {
-                        print("loginWithKakaoAccount() success.")
-
-                        // 성공 시 동작 구현
-                        self.isKaKaoLogin = true
+                        _ = oauthToken
+                        continuation.resume(returning: true)
                     }
                 }
             }
         }
         
-        // TODO: 카카오 로그 아웃
-        func logoutKaKao() {
-            UserApi.shared.logout {(error) in
-                if let error = error {
-                    print(error)
-                }
-                else {
-                    print("logout() success.")
+        // TODO: 웹뷰로 카카오 로그인
+        internal func webviewKaKaoLogin() async -> Bool {
+            await withCheckedContinuation { continuation in
+                UserApi.shared.loginWithKakaoAccount { (oauthToken, error) in
+                    if let error = error {
+                        print("KakaoAccount login error: \(error)")
+                        continuation.resume(returning: false)
+                    } else {
+                        print("loginWithKakaoAccount() success.")
+                        // 성공 시 동작 구현
+                        _ = oauthToken
+                        continuation.resume(returning: true)
+                    }
                 }
             }
-            self.isKaKaoLogin = false
+        }
+        
+        // TODO: 로그아웃 내부 수행 로직
+        internal func logoutKaKao() async -> Bool {
+            await withCheckedContinuation { continuation in
+                UserApi.shared.logout { error in
+                    if let error = error {
+                        print("Logout error: \(error)")
+                        continuation.resume(returning: false) // 에러 시 false 반환
+                    } else {
+                        print("logout() success.")
+                        continuation.resume(returning: true)
+                    }
+                }
+            }
         }
     }
 }
