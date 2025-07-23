@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F454748D2E30C7BF004A9646 /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F454748C2E30C7BF004A9646 /* KakaoSDKAuth */; };
+		F454748F2E30C7BF004A9646 /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = F454748E2E30C7BF004A9646 /* KakaoSDKCommon */; };
+		F45474932E30C7BF004A9646 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = F45474922E30C7BF004A9646 /* KakaoSDKUser */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		F4373C792DB3D78C006C8856 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -59,17 +65,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F454748F2E30C7BF004A9646 /* KakaoSDKCommon in Frameworks */,
+				F45474932E30C7BF004A9646 /* KakaoSDKUser in Frameworks */,
+				F454748D2E30C7BF004A9646 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F45474892E30C7BF004A9646 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F4E095BF2DB09BA9009E0ABD = {
 			isa = PBXGroup;
 			children = (
 				F4E095CA2DB09BA9009E0ABD /* PlaygroundSwiftUI */,
 				F4373C762DB3D78C006C8856 /* PlaygroundSwiftUITests */,
+				F45474892E30C7BF004A9646 /* Frameworks */,
 				F4E095C92DB09BA9009E0ABD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -126,6 +143,9 @@
 			);
 			name = PlaygroundSwiftUI;
 			packageProductDependencies = (
+				F454748C2E30C7BF004A9646 /* KakaoSDKAuth */,
+				F454748E2E30C7BF004A9646 /* KakaoSDKCommon */,
+				F45474922E30C7BF004A9646 /* KakaoSDKUser */,
 			);
 			productName = PlaygroundSwiftUI;
 			productReference = F4E095C82DB09BA9009E0ABD /* PlaygroundSwiftUI.app */;
@@ -160,6 +180,9 @@
 			);
 			mainGroup = F4E095BF2DB09BA9009E0ABD;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F45474832E30C0D1004A9646 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F4E095C92DB09BA9009E0ABD /* Products */;
 			projectDirPath = "";
@@ -377,7 +400,7 @@
 		F4E095D42DB09BAB009E0ABD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = F4E095CA2DB09BA9009E0ABD /* PlaygroundSwiftUI */;
-			baseConfigurationReferenceRelativePath = Secrets.xcconfig;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -393,6 +416,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -409,7 +433,7 @@
 		F4E095D52DB09BAB009E0ABD /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = F4E095CA2DB09BA9009E0ABD /* PlaygroundSwiftUI */;
-			baseConfigurationReferenceRelativePath = Secrets.xcconfig;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -425,6 +449,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -469,6 +494,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F45474832E30C0D1004A9646 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.24.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F454748C2E30C7BF004A9646 /* KakaoSDKAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F45474832E30C0D1004A9646 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKAuth;
+		};
+		F454748E2E30C7BF004A9646 /* KakaoSDKCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F45474832E30C0D1004A9646 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKCommon;
+		};
+		F45474922E30C7BF004A9646 /* KakaoSDKUser */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F45474832E30C0D1004A9646 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
+			productName = KakaoSDKUser;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F4E095C02DB09BA9009E0ABD /* Project object */;
 }
