@@ -31,6 +31,7 @@
 		F42CC11D2DB2492B00C6E9D5 /* Exceptions for "PlaygroundSwiftUI" folder in "PlaygroundSwiftUI" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Config.xcconfig,
 				Info.plist,
 			);
 			target = F4E095C72DB09BA9009E0ABD /* PlaygroundSwiftUI */;
@@ -159,7 +160,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1630;
-				LastUpgradeCheck = 1630;
+				LastUpgradeCheck = 1640;
 				TargetAttributes = {
 					F4373C742DB3D78C006C8856 = {
 						CreatedOnToolsVersion = 16.3;
