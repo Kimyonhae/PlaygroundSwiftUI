@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
-import KakaoSDKUser
 import KakaoSDKAuth
-
+import NidThirdPartyLogin
 
 struct SocialLoginView: View {
     @StateObject var km: SocialLoginView.KaKaoAuthViewModel = .init()
+    @StateObject var nm: SocialLoginView.NaverAuthViewModel = .init()
     
     var body: some View {
         if AuthApi.hasToken() {
@@ -20,6 +20,12 @@ struct SocialLoginView: View {
                     Task {
                         await km.logout()
                     }
+                }
+            }
+        } else if nm.isNaverLogin {
+            loginSuccess("네이버 로그 아웃") {
+                Task {
+                    await nm.logout()
                 }
             }
         } else {
@@ -35,6 +41,9 @@ struct SocialLoginView: View {
                 
                 loginButton("네이버 로그인", color: .green) {
                     print("네이버 로그인")
+                    Task {
+                        await nm.login()
+                    }
                 }
                 
                 loginButton("구글 로그인", color: .gray) {

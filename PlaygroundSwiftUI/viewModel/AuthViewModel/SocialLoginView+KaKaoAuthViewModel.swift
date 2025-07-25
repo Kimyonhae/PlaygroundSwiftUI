@@ -7,6 +7,7 @@
 
 import Foundation
 import KakaoSDKUser
+import NidThirdPartyLogin
 
 // viewModel
 extension SocialLoginView {
