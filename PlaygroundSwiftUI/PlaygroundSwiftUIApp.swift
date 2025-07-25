@@ -8,10 +8,12 @@
 import SwiftUI
 import KakaoSDKAuth
 import KakaoSDKCommon
+import NidThirdPartyLogin
 
 @main
 struct PlayGroundSwiftUI: App {
-
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     init() {
         let kakao_apiKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as? String ?? ""
         print("KAKAO API KEY : \(kakao_apiKey)")
