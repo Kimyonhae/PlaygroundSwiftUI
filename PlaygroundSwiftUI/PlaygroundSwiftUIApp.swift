@@ -16,7 +16,6 @@ struct PlayGroundSwiftUI: App {
     
     init() {
         let kakao_apiKey = Bundle.main.infoDictionary?["KAKAO_API_KEY"] as? String ?? ""
-        print("KAKAO API KEY : \(kakao_apiKey)")
         KakaoSDK.initSDK(appKey: kakao_apiKey)
     }
     var body: some Scene {
