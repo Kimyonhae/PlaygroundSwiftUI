@@ -28,7 +28,8 @@ let routes: [ConnectionView] = [
     ConnectionView(title: "GithubUserListView Playground", destination: GithubUserListView()),
     ConnectionView(title: "Subscriber Playground", destination: SubscriberView(title: "구독 연습")),
     ConnectionView(title: "뷰 - 뷰모델의 새로운 발견", destination: ContentView()),
-    ConnectionView(title: "소셜 로그인", destination: SocialLoginView())
+    ConnectionView(title: "소셜 로그인", destination: SocialLoginView()),
+    ConnectionView(title: "달력 만들어보기", destination: CalenderView())
 ]
 
 struct MainView: View {
