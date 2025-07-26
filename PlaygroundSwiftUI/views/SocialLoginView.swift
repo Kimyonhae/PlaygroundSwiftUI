@@ -12,6 +12,7 @@ import NidThirdPartyLogin
 struct SocialLoginView: View {
     @StateObject var km: SocialLoginView.KaKaoAuthViewModel = .init()
     @StateObject var nm: SocialLoginView.NaverAuthViewModel = .init()
+    @StateObject var am: SocialLoginView.AppleAuthViewModel = .init()
     
     var body: some View {
         if AuthApi.hasToken() {
@@ -51,7 +52,9 @@ struct SocialLoginView: View {
                 }
                 
                 loginButton("애플 로그인", color: .black) {
-                    print("애플 로그인")
+                    Task {
+                        await am.login()
+                    }
                 }
             }
             .padding()
