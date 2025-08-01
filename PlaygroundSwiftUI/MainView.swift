@@ -30,7 +30,8 @@ let routes: [ConnectionView] = [
     ConnectionView(title: "뷰 - 뷰모델의 새로운 발견", destination: ContentView()),
     ConnectionView(title: "소셜 로그인", destination: SocialLoginView()),
     ConnectionView(title: "달력 만들어보기", destination: CalenderView()),
-    ConnectionView(title: "State의 중복 제거", destination: RemoveDeduplication())
+    ConnectionView(title: "State의 중복 제거", destination: RemoveDeduplication()),
+    ConnectionView(title: "Gradient Text and BgColor", destination: GradientTextAndBG())
 ]
 
 struct MainView: View {
